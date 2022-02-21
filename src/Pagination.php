@@ -4,6 +4,7 @@ namespace Basemkhirat\Elasticsearch;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\UrlWindow;
+use Illuminate\Support\HtmlString;
 
 class Pagination extends LengthAwarePaginator
 {
@@ -22,7 +23,14 @@ class Pagination extends LengthAwarePaginator
 
         $elements = $this->elements();
 
-        require dirname(__FILE__) . "/pagination/" . $view . ".php";
+        return new HtmlString(
+            static::viewFactory()->make($view ?: 'default', array_merge($data, [
+                'paginator' => $this,
+                'elements' => $this->elements(),
+            ]))->render()
+        );
+
+//        require dirname(__FILE__) . "/pagination/" . $view . ".php";
     }
 
 
