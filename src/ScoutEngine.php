@@ -166,7 +166,7 @@ class ScoutEngine extends Engine
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return Collection
      */
-    public function map($results, $model)
+    public function map(Builder $builder,$results, $model)
     {
         if ($results['hits']['total'] === 0) {
             return Collection::make();
@@ -194,5 +194,13 @@ class ScoutEngine extends Engine
     public function getTotalCount($results)
     {
         return $results['hits']['total'];
+    }
+    
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $model
+     */
+    public function flush($model)
+    {
+        //
     }
 }
